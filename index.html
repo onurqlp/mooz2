@@ -3,86 +3,29 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="DC On – Daily.co tabanlı sesli sohbet"/>
   <title>DC On – Tek Oda</title>
   <style>
-    body {
-      margin: 0;
-      background: #282c34;
-      color: #fff;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      height: 100vh;
-    }
-    h1 {
-      color: #61dafb;
-      margin: 20px 0;
-    }
-    .buttons {
-      margin-bottom: 10px;
-    }
-    .buttons button {
-      background: #61dafb;
-      color: #282c34;
-      border: none;
-      padding: 8px 16px;
-      cursor: pointer;
-    }
-    .buttons button:hover { background: #21a1f1; }
-    #video-wrapper {
-      flex: 1;
-      width: 80%;
-      position: relative;
-      background: #eef3f5;
-    }
-    #callContainer {
-      width: 100%;
-      height: 100%;
-    }
-    #fs-btn {
-      display: none;
-      position: absolute;
-      top: 10px;
-      right: 10px;
-      background: #61dafb;
-      color: #282c34;
-      border: none;
-      padding: 6px 12px;
-      cursor: pointer;
-    }
+    body { margin:0; background:#282c34; color:#fff; font-family:Arial; display:flex; flex-direction:column; align-items:center; height:100vh; }
+    h1 { color:#61dafb; margin:20px 0; }
+    #joinBtn { background:#61dafb; color:#282c34; border:none; padding:10px 20px; cursor:pointer; }
+    #video-wrapper { flex:1; width:80%; position:relative; background:#eef3f5; }
+    iframe { width:100%; height:100%; border:none; }
   </style>
 </head>
 <body>
   <h1>DC On – GARDAŞŞ</h1>
-  <div class="buttons">
-    <button id="joinBtn">Odaya Katıl</button>
-  </div>
+  <button id="joinBtn">Odaya Katıl</button>
   <div id="video-wrapper">
-    <div id="callContainer"></div>
-    <button id="fs-btn">Tam Ekran</button>
+    <iframe id="roomFrame"
+            allow="camera; microphone; display-capture">
+    </iframe>
   </div>
 
-  <script src="https://unpkg.com/@daily-co/daily-js"></script>
   <script>
-    const ROOM_URL = 'https://moooz2.daily.co/room12';
-    const callFrame = DailyIframe.createFrame(
-      document.getElementById('callContainer'),
-      { iframeStyle: { border: 'none', width: '100%', height: '100%' } }
-    );
-
     document.getElementById('joinBtn').onclick = () => {
-      callFrame.join({ url: ROOM_URL });
-      document.getElementById('fs-btn').style.display = 'block';
-    };
-
-    document.getElementById('fs-btn').onclick = () => {
-      const iframe = document.querySelector('#callContainer iframe');
-      if (!iframe) return;
-      (iframe.requestFullscreen ||
-       iframe.webkitRequestFullscreen ||
-       iframe.msRequestFullscreen).call(iframe);
+      // ?autojoin=true parametresi otomatik açar
+      document.getElementById('roomFrame').src =
+        'https://moooz2.daily.co/room12?autojoin=true';
     };
   </script>
 </body>
